@@ -1,9 +1,9 @@
 fc8a56933c4b1c8d796fdb8f7a9f9475
-::res://::1712243522
+::res://::1712254174
 control.tscn::PackedScene::3967560098168932687::1712242493::0::1::::<><>::uid://b72vtrk6dlb2p::::res://icons/iconaPg.svg<>uid://dxavjiunljyv6::::res://temi/tema_bottoni.tres<>uid://wqtgjxfpupi3::::res://icons/armor.svg<>uid://dijl332ttrhwv::::res://icons/hp_base.svg<>uid://yy4yyd1ke26p::::res://icons/armor_selected.svg<>uid://do7wgix1nuvft::::res://icons/hp_hit.svg
-export_presets.cfg::TextFile::-1::1712097224::0::1::::<><>::
 icon.svg::CompressedTexture2D::8999567548390004678::1712083807::1712083813::1::::<><>::
 personaggio.png::CompressedTexture2D::3132143129065055400::1712094052::1712094092::1::::<><>::
+README.md::TextFile::-1::1712254056::0::1::::<><>::
 ::res://icons/::1712236650
 armor.svg::CompressedTexture2D::1578349450216339800::1712169001::1712169007::1::::<><>::
 armor_selected.svg::CompressedTexture2D::1735882231643847385::1712168966::1712169007::1::::<><>::
