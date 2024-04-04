@@ -1,0 +1,525 @@
+[gd_scene load_steps=18 format=3 uid="uid://bwr6euh5sy0h4"]
+
+[ext_resource type="Texture2D" uid="uid://b72vtrk6dlb2p" path="res://icons/iconaPg.svg" id="1_abu8b"]
+[ext_resource type="Theme" uid="uid://dxavjiunljyv6" path="res://temi/tema_bottoni.tres" id="2_8xko5"]
+[ext_resource type="Texture2D" uid="uid://wqtgjxfpupi3" path="res://icons/armor.svg" id="2_gx0cu"]
+[ext_resource type="Texture2D" uid="uid://dijl332ttrhwv" path="res://icons/hp_base.svg" id="3_ewqhc"]
+[ext_resource type="Texture2D" uid="uid://yy4yyd1ke26p" path="res://icons/armor_selected.svg" id="3_gf0ih"]
+[ext_resource type="Texture2D" uid="uid://do7wgix1nuvft" path="res://icons/hp_hit.svg" id="4_dk57h"]
+
+[sub_resource type="GDScript" id="GDScript_yhbxl"]
+script/source = "extends FileDialog
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+func _on_img_button_pressed():
+	self.visible = true;
+"
+
+[sub_resource type="GDScript" id="GDScript_pagwq"]
+script/source = "extends LineEdit;
+var letterem = [\"a\",\"b\",\"c\",\"d\",\"e\",\"f\",\"g\",\"h\",\"i\",\"j\",\"k\",\"l\",\"m\",\"n\",\"o\",\"p\",\"q\",\"r\",\"s\",\"t\",\"u\",\"v\",\"w\",\"x\",\"y\",\"z\"];
+var lettereM = [\"A\",\"B\",\"C\",\"D\",\"E\",\"F\",\"G\",\"H\",\"I\",\"j\",\"K\",\"L\",\"M\",\"N\",\"O\",\"P\",\"Q\",\"R\",\"S\",\"T\",\"U\",\"V\",\"W\",\"X\",\"Y\",\"Z\"];
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	for i in 6:
+		var sel = randi() % 3;
+		match sel:
+			0:
+				text += str(randi() % 10);
+			1:
+				text += letterem[randi() % letterem.size()];
+			2:
+				text += lettereM[randi() % lettereM.size()];
+
+"
+
+[sub_resource type="GDScript" id="GDScript_8grla"]
+script/source = "extends Button
+
+func _ready():
+	pass
+	
+func _pressed():
+	print(\"premuto\");
+	pass
+
+
+func _on_file_dialog_file_selected(path):
+	pass # Replace with function body.
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_utmm4"]
+bg_color = Color(0.901961, 0.431373, 0, 1)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.901961, 0.431373, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_fdhxj"]
+script/source = "extends TextureRect
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+
+
+func _on_file_dialog_file_selected(path):
+	DirAccess.make_dir_absolute(\"save\");
+	var img_pg = Image.load_from_file(path);
+	texture = ImageTexture.create_from_image(img_pg);
+	texture.get_image().save_png(\"save/personaggio.png\");
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p2gah"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.121569, 0.121569, 0.121569, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.4, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="Theme" id="Theme_758m7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f6l3n"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0.576471, 0.854902, 0.27451)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ofpk8"]
+color = Color(0.701961, 0.701961, 0.701961, 1)
+thickness = 4
+vertical = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxbbk"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.701961, 0.701961, 0.701961, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_s3qfj"]
+color = Color(0.701961, 0.701961, 0.701961, 1)
+thickness = 3
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+size = Vector2i(452, 159)
+ok_button_text = "Apri"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png, *.jpg, *.jpeg, *.svg")
+use_native_dialog = true
+script = SubResource("GDScript_yhbxl")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+tab_alignment = 2
+current_tab = 1
+tab_focus_mode = 0
+
+[node name="Curriculum" type="MarginContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Curriculum"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Curriculum/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="TabContainer/Curriculum/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Codice Civile:"
+
+[node name="Codice" type="LineEdit" parent="TabContainer/Curriculum/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+max_length = 7
+editable = false
+expand_to_text_length = true
+script = SubResource("GDScript_pagwq")
+
+[node name="Label2" type="Label" parent="TabContainer/Curriculum/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Nome:"
+
+[node name="Nome" type="LineEdit" parent="TabContainer/Curriculum/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/minimum_character_width = 12
+placeholder_text = "Nome Operatore"
+max_length = 50
+
+[node name="Label3" type="Label" parent="TabContainer/Curriculum/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Cognome:"
+
+[node name="Cognome" type="LineEdit" parent="TabContainer/Curriculum/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/minimum_character_width = 12
+placeholder_text = "Cognome Operatore"
+max_length = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Curriculum/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Curriculum/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ImgButton" type="Button" parent="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Carica Immagine"
+script = SubResource("GDScript_8grla")
+
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_utmm4")
+
+[node name="ImgPg" type="TextureRect" parent="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/VBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(420, 420)
+layout_mode = 2
+texture = ExtResource("1_abu8b")
+expand_mode = 1
+stretch_mode = 5
+script = SubResource("GDScript_fdhxj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Storia:"
+
+[node name="TextEdit" type="TextEdit" parent="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(450, 450)
+layout_mode = 2
+
+[node name="Statistiche" type="MarginContainer" parent="TabContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Statistiche"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="MarginContainer" type="PanelContainer" parent="TabContainer/Statistiche/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_p2gah")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "STATUS OPERATORE"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="PanelContainer" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_758m7")
+theme_override_styles/panel = SubResource("StyleBoxFlat_f6l3n")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+text = "H"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button2" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(35, 90)
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+text = "A"
+
+[node name="Button3" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 100)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+text = "B"
+
+[node name="Button4" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(35, 90)
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+text = "A"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button5" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(35, 100)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+text = "L"
+
+[node name="Button6" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(35, 100)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+text = "L"
+
+[node name="VSeparator" type="VSeparator" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+theme_override_styles/separator = SubResource("StyleBoxLine_ofpk8")
+
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lxbbk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Label" type="Label" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "HP"
+horizontal_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+toggle_mode = true
+texture_normal = ExtResource("3_ewqhc")
+texture_pressed = ExtResource("4_dk57h")
+stretch_mode = 5
+
+[node name="TextureButton2" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+toggle_mode = true
+texture_normal = ExtResource("3_ewqhc")
+texture_pressed = ExtResource("4_dk57h")
+stretch_mode = 5
+
+[node name="TextureButton3" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+toggle_mode = true
+texture_normal = ExtResource("3_ewqhc")
+texture_pressed = ExtResource("4_dk57h")
+stretch_mode = 5
+
+[node name="TextureButton4" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+toggle_mode = true
+texture_normal = ExtResource("3_ewqhc")
+texture_pressed = ExtResource("4_dk57h")
+stretch_mode = 5
+
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+theme_override_styles/separator = SubResource("StyleBoxLine_s3qfj")
+
+[node name="Label2" type="Label" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "COMBAT ARMOR"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="HBoxContainer" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureButton" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+toggle_mode = true
+texture_normal = ExtResource("2_gx0cu")
+texture_pressed = ExtResource("3_gf0ih")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton2" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+toggle_mode = true
+texture_normal = ExtResource("2_gx0cu")
+texture_pressed = ExtResource("3_gf0ih")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton3" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+toggle_mode = true
+texture_normal = ExtResource("2_gx0cu")
+texture_pressed = ExtResource("3_gf0ih")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton4" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+toggle_mode = true
+texture_normal = ExtResource("2_gx0cu")
+texture_pressed = ExtResource("3_gf0ih")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureButton5" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+toggle_mode = true
+texture_normal = ExtResource("2_gx0cu")
+texture_pressed = ExtResource("3_gf0ih")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Statistiche/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "SPECIALIZZAZIONE: "
+horizontal_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "ALTERAZIONI: "
+horizontal_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Inventario" type="GridContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -960.0
+offset_bottom = -616.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Salva"
+
+[node name="Button2" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Carica"
+
+[connection signal="file_selected" from="FileDialog" to="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/VBoxContainer/ImgButton" method="_on_file_dialog_file_selected"]
+[connection signal="file_selected" from="FileDialog" to="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/VBoxContainer/PanelContainer/ImgPg" method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/VBoxContainer/ImgButton" to="FileDialog" method="_on_img_button_pressed"]
