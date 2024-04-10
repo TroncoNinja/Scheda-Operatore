@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bwr6euh5sy0h4"]
+[gd_scene load_steps=21 format=3 uid="uid://bwr6euh5sy0h4"]
 
 [ext_resource type="Texture2D" uid="uid://b72vtrk6dlb2p" path="res://icons/iconaPg.svg" id="1_abu8b"]
 [ext_resource type="Theme" uid="uid://dxavjiunljyv6" path="res://temi/tema_bottoni.tres" id="2_8xko5"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dijl332ttrhwv" path="res://icons/hp_base.svg" id="3_ewqhc"]
 [ext_resource type="Texture2D" uid="uid://yy4yyd1ke26p" path="res://icons/armor_selected.svg" id="3_gf0ih"]
 [ext_resource type="Texture2D" uid="uid://do7wgix1nuvft" path="res://icons/hp_hit.svg" id="4_dk57h"]
+[ext_resource type="Texture2D" uid="uid://c730rud8k6j2l" path="res://weapons/weapon_ak.svg" id="7_q18b5"]
+[ext_resource type="Script" path="res://MainWeapon.gd" id="8_c78ju"]
 
 [sub_resource type="GDScript" id="GDScript_yhbxl"]
 script/source = "extends FileDialog
@@ -131,6 +133,18 @@ corner_radius_bottom_left = 5
 color = Color(0.701961, 0.701961, 0.701961, 1)
 thickness = 3
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4etf"]
+bg_color = Color(0.235294, 0.27451, 0.188235, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.4, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -157,7 +171,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 2
-current_tab = 1
+current_tab = 2
 tab_focus_mode = 0
 
 [node name="Curriculum" type="MarginContainer" parent="TabContainer"]
@@ -253,6 +267,7 @@ custom_minimum_size = Vector2(450, 450)
 layout_mode = 2
 
 [node name="Statistiche" type="MarginContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -476,7 +491,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-text = "SPECIALIZZAZIONE: "
+text = "ADDESTRAMENTO: "
 horizontal_alignment = 1
 
 [node name="LineEdit" type="LineEdit" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer"]
@@ -496,8 +511,559 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Inventario" type="GridContainer" parent="TabContainer"]
-visible = false
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "STATUS:"
+
+[node name="CheckButton" type="CheckButton" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 25
+text = "In Tiro"
+
+[node name="CheckButton2" type="CheckButton" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 25
+text = "Mezza Copertura"
+
+[node name="CheckButton3" type="CheckButton" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 25
+text = "Copertura Totale"
+
+[node name="Inventario" type="MarginContainer" parent="TabContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Inventario"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Inventario/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Nuovo Dollaro:"
+
+[node name="SpinBox" type="SpinBox" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+max_value = 50.0
+alignment = 2
+
+[node name="Label2" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "(x 0.001)"
+
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h4etf")
+
+[node name="MainWeapon" type="TextureRect" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/PanelContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("7_q18b5")
+expand_mode = 5
+stretch_mode = 4
+script = ExtResource("8_c78ju")
+
+[node name="WeaponSelector" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/PanelContainer/MainWeapon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 209.0
+offset_right = -217.0
+offset_bottom = -22.5
+grow_horizontal = 2
+grow_vertical = 2
+item_count = 7
+selected = 0
+allow_reselect = true
+popup/item_0/text = "AK"
+popup/item_0/id = 0
+popup/item_1/text = "AR"
+popup/item_1/id = 1
+popup/item_2/text = "Benelli"
+popup/item_2/id = 2
+popup/item_3/text = "Mossberg"
+popup/item_3/id = 3
+popup/item_4/text = "Victrix"
+popup/item_4/id = 4
+popup/item_5/text = "Barret"
+popup/item_5/id = 5
+popup/item_6/text = "Pistol"
+popup/item_6/id = 6
+
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/PanelContainer/MainWeapon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 155.0
+offset_top = 83.0
+offset_right = -114.0
+offset_bottom = -176.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.785397
+
+[node name="OpticSelector" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/PanelContainer/MainWeapon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 216.0
+offset_top = 9.0
+offset_right = -13.0
+offset_bottom = -222.5
+grow_horizontal = 2
+grow_vertical = 2
+item_count = 3
+selected = 0
+allow_reselect = true
+popup/item_0/text = "Red Dot"
+popup/item_0/id = 0
+popup/item_1/text = "Holo"
+popup/item_1/id = 1
+popup/item_2/text = "Acog"
+popup/item_2/id = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Hand to hand:"
+
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Short:"
+
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Medium:"
+
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Long:"
+
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="HSeparator2" type="HSeparator" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h4etf")
+
+[node name="MainWeapon" type="TextureRect" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/PanelContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("7_q18b5")
+expand_mode = 5
+stretch_mode = 4
+script = ExtResource("8_c78ju")
+
+[node name="WeaponSelector" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/PanelContainer/MainWeapon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 209.0
+offset_right = -217.0
+offset_bottom = -22.5
+grow_horizontal = 2
+grow_vertical = 2
+item_count = 7
+selected = 0
+allow_reselect = true
+popup/item_0/text = "AK"
+popup/item_0/id = 0
+popup/item_1/text = "AR"
+popup/item_1/id = 1
+popup/item_2/text = "Benelli"
+popup/item_2/id = 2
+popup/item_3/text = "Mossberg"
+popup/item_3/id = 3
+popup/item_4/text = "Victrix"
+popup/item_4/id = 4
+popup/item_5/text = "Barret"
+popup/item_5/id = 5
+popup/item_6/text = "Pistol"
+popup/item_6/id = 6
+
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/PanelContainer/MainWeapon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 155.0
+offset_top = 83.0
+offset_right = -114.0
+offset_bottom = -176.5
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.785397
+
+[node name="OpticSelector" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/PanelContainer/MainWeapon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 216.0
+offset_top = 9.0
+offset_right = -13.0
+offset_bottom = -222.5
+grow_horizontal = 2
+grow_vertical = 2
+item_count = 3
+selected = 0
+allow_reselect = true
+popup/item_0/text = "Red Dot"
+popup/item_0/id = 0
+popup/item_1/text = "Holo"
+popup/item_1/id = 1
+popup/item_2/text = "Acog"
+popup/item_2/id = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Hand to hand:"
+
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Short:"
+
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Medium:"
+
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Long:"
+
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_8xko5")
+toggle_mode = true
+
+[node name="VSeparator" type="VSeparator" parent="TabContainer/Inventario/HBoxContainer"]
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -523,3 +1089,5 @@ text = "Carica"
 [connection signal="file_selected" from="FileDialog" to="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/VBoxContainer/ImgButton" method="_on_file_dialog_file_selected"]
 [connection signal="file_selected" from="FileDialog" to="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/VBoxContainer/PanelContainer/ImgPg" method="_on_file_dialog_file_selected"]
 [connection signal="pressed" from="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/VBoxContainer/ImgButton" to="FileDialog" method="_on_img_button_pressed"]
+[connection signal="item_selected" from="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/PanelContainer/MainWeapon/WeaponSelector" to="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/PanelContainer/MainWeapon" method="_on_weapon_selector_item_selected"]
+[connection signal="item_selected" from="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/PanelContainer/MainWeapon/WeaponSelector" to="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/PanelContainer/MainWeapon" method="_on_weapon_selector_item_selected"]
