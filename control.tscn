@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bwr6euh5sy0h4"]
+[gd_scene load_steps=29 format=3 uid="uid://bwr6euh5sy0h4"]
 
 [ext_resource type="Texture2D" uid="uid://b72vtrk6dlb2p" path="res://icons/iconaPg.svg" id="1_abu8b"]
 [ext_resource type="Theme" uid="uid://dxavjiunljyv6" path="res://temi/tema_bottoni.tres" id="2_8xko5"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://do7wgix1nuvft" path="res://icons/hp_hit.svg" id="4_dk57h"]
 [ext_resource type="Texture2D" uid="uid://c730rud8k6j2l" path="res://weapons/weapon_ak.svg" id="7_q18b5"]
 [ext_resource type="Script" path="res://MainWeapon.gd" id="8_c78ju"]
+[ext_resource type="Texture2D" uid="uid://3q31v11i0kde" path="res://gadgets/perk_di.svg" id="9_1psmk"]
 
 [sub_resource type="GDScript" id="GDScript_yhbxl"]
 script/source = "extends FileDialog
@@ -133,6 +134,37 @@ corner_radius_bottom_left = 5
 color = Color(0.701961, 0.701961, 0.701961, 1)
 thickness = 3
 
+[sub_resource type="GDScript" id="GDScript_x74n0"]
+script/source = "extends CheckButton
+
+func _on_full_cover_btn_toggled(toggled_on):
+	if (toggled_on == true):
+		button_pressed = false;
+		disabled = true;
+	else:
+		disabled = false;
+"
+
+[sub_resource type="GDScript" id="GDScript_8s8q3"]
+script/source = "extends CheckButton
+
+func _on_full_cover_btn_pressed():
+	print(\"full cover premuto\");
+	print(button_pressed);
+	if (button_pressed == true) :
+		button_pressed = false;
+"
+
+[sub_resource type="GDScript" id="GDScript_ubjjo"]
+script/source = "extends CheckButton
+
+func _on_half_cover_btn_pressed():
+	print(\"half cover premuto\");
+	print(button_pressed);
+	if (button_pressed == true) :
+		button_pressed = false;
+"
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4etf"]
 bg_color = Color(0.235294, 0.27451, 0.188235, 1)
 border_width_left = 2
@@ -144,6 +176,55 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gx74t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a8jsq"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.121569, 0.121569, 0.121569, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b22h7"]
+bg_color = Color(0.235294, 0.27451, 0.188235, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.4, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="GDScript" id="GDScript_g7rjf"]
+script/source = "extends TextureRect
+var diImg = load(\"res://gadgets/perk_di.svg\");
+var opImg = load(\"res://gadgets/perk_optic.svg\");
+var thImg = load(\"res://gadgets/perk_thermal.svg\");
+var ubImg = load(\"res://gadgets/perk_underbarrel.svg\");
+var shImg = load(\"res://gadgets/perk_shield.svg\");
+
+
+
+func _on_option_button_item_selected(index):
+	match index:
+		0:
+			texture = diImg;
+		1:
+			texture = opImg;
+		2:
+			texture = thImg;
+		3:
+			texture = ubImg;
+		4:
+			texture = shImg;
+"
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -171,7 +252,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 2
-current_tab = 2
+current_tab = 1
 tab_focus_mode = 0
 
 [node name="Curriculum" type="MarginContainer" parent="TabContainer"]
@@ -267,7 +348,6 @@ custom_minimum_size = Vector2(450, 450)
 layout_mode = 2
 
 [node name="Statistiche" type="MarginContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -514,33 +594,80 @@ size_flags_horizontal = 3
 [node name="HSeparator" type="HSeparator" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
 text = "STATUS:"
 
-[node name="CheckButton" type="CheckButton" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer"]
+[node name="TiroBtn" type="CheckButton" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
 custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 25
 text = "In Tiro"
+script = SubResource("GDScript_x74n0")
 
-[node name="CheckButton2" type="CheckButton" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer"]
+[node name="HalfCoverBtn" type="CheckButton" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
 custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 25
 text = "Mezza Copertura"
+script = SubResource("GDScript_8s8q3")
 
-[node name="CheckButton3" type="CheckButton" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer"]
+[node name="FullCoverBtn" type="CheckButton" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
 custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 25
 text = "Copertura Totale"
+script = SubResource("GDScript_ubjjo")
+
+[node name="VSeparator" type="VSeparator" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+columns = 2
+
+[node name="Label" type="Label" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+layout_mode = 2
+text = "Atletica:"
+
+[node name="SpinBox" type="SpinBox" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+layout_mode = 2
+max_value = 5.0
+
+[node name="Label2" type="Label" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+layout_mode = 2
+text = "Sapienza:"
+
+[node name="SpinBox2" type="SpinBox" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+layout_mode = 2
+max_value = 5.0
+
+[node name="Label3" type="Label" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+layout_mode = 2
+text = "Empatia:"
+
+[node name="SpinBox3" type="SpinBox" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+layout_mode = 2
+max_value = 5.0
+
+[node name="Label4" type="Label" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+layout_mode = 2
+text = "Sensi:"
+
+[node name="SpinBox4" type="SpinBox" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+layout_mode = 2
+max_value = 5.0
 
 [node name="Inventario" type="MarginContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -1065,29 +1192,80 @@ toggle_mode = true
 
 [node name="VSeparator" type="VSeparator" parent="TabContainer/Inventario/HBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 15
+theme_override_styles/separator = SubResource("StyleBoxEmpty_gx74t")
+
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventario/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_a8jsq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Inventario/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Gadget"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventario/HBoxContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_b22h7")
+
+[node name="Gadget" type="TextureRect" parent="TabContainer/Inventario/HBoxContainer/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("9_1psmk")
+expand_mode = 1
+stretch_mode = 5
+script = SubResource("GDScript_g7rjf")
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+item_count = 5
+selected = 0
+popup/item_0/text = "DI OpenAll"
+popup/item_0/id = 0
+popup/item_1/text = "Variable Optic"
+popup/item_1/id = 1
+popup/item_2/text = "Thermal Scanner"
+popup/item_2/id = 2
+popup/item_3/text = "Underbarrel"
+popup/item_3/id = 3
+popup/item_4/text = "Balistic Shield"
+popup/item_4/id = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -960.0
-offset_bottom = -616.0
+anchors_preset = -1
+anchor_bottom = 0.025
+offset_right = 192.0
+offset_bottom = 15.8
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Button" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 text = "Salva"
 
 [node name="Button2" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 text = "Carica"
 
 [connection signal="file_selected" from="FileDialog" to="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/VBoxContainer/ImgButton" method="_on_file_dialog_file_selected"]
 [connection signal="file_selected" from="FileDialog" to="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/VBoxContainer/PanelContainer/ImgPg" method="_on_file_dialog_file_selected"]
 [connection signal="pressed" from="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/VBoxContainer/ImgButton" to="FileDialog" method="_on_img_button_pressed"]
+[connection signal="pressed" from="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HalfCoverBtn" to="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/FullCoverBtn" method="_on_half_cover_btn_pressed"]
+[connection signal="pressed" from="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/FullCoverBtn" to="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HalfCoverBtn" method="_on_full_cover_btn_pressed"]
+[connection signal="toggled" from="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/FullCoverBtn" to="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/TiroBtn" method="_on_full_cover_btn_toggled"]
 [connection signal="item_selected" from="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/PanelContainer/MainWeapon/WeaponSelector" to="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/PanelContainer/MainWeapon" method="_on_weapon_selector_item_selected"]
 [connection signal="item_selected" from="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/PanelContainer/MainWeapon/WeaponSelector" to="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/PanelContainer/MainWeapon" method="_on_weapon_selector_item_selected"]
+[connection signal="item_selected" from="TabContainer/Inventario/HBoxContainer/PanelContainer/VBoxContainer/OptionButton" to="TabContainer/Inventario/HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/Gadget" method="_on_option_button_item_selected"]

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="120"
+   height="120"
+   viewBox="0 0 120 120"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="perk_thermal.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="6.775"
+     inkscape:cx="67.822878"
+     inkscape:cy="55.129151"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       dotted="false"
+       gridanglex="30"
+       gridanglez="30"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Livello 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="matrix(1.5142857,0,0,1.5142857,-34.171427,-26.771428)">
+    <path
+       d="M 25,34 V 79 H 90 V 34 Z m 5,5 H 85 V 74 H 30 Z"
+       id="path16" />
+    <path
+       d="m 90,49 v 15 h 10 V 62 H 99 V 51 h 1 v -2 z"
+       id="path18" />
+    <rect
+       style="fill:#00ffff;fill-opacity:0.289593"
+       id="rect17"
+       width="55"
+       height="35"
+       x="30"
+       y="39" />
+    <rect
+       style="fill:#ff2a2a"
+       id="rect4"
+       width="4"
+       height="1"
+       x="80"
+       y="44" />
+    <rect
+       style="fill:#ff0000"
+       id="rect5"
+       width="2"
+       height="1"
+       x="82"
+       y="46" />
+    <rect
+       style="fill:#d40000"
+       id="rect6"
+       width="2"
+       height="1"
+       x="82"
+       y="48" />
+    <rect
+       style="fill:#ffdd55"
+       id="rect7"
+       width="2"
+       height="1"
+       x="82"
+       y="50" />
+    <rect
+       style="fill:#ffd42a"
+       id="rect8"
+       width="4"
+       height="1"
+       x="80"
+       y="52" />
+    <rect
+       style="fill:#ffcc00"
+       id="rect9"
+       width="2"
+       height="1"
+       x="82"
+       y="54" />
+    <rect
+       style="fill:#99ff55"
+       id="rect10"
+       width="2"
+       height="1"
+       x="82"
+       y="56" />
+    <rect
+       style="fill:#7fff2a"
+       id="rect11"
+       width="2"
+       height="1"
+       x="82"
+       y="58" />
+    <rect
+       style="fill:#66ff00"
+       id="rect12"
+       width="4"
+       height="1"
+       x="80"
+       y="60" />
+    <rect
+       style="fill:#5555ff"
+       id="rect13"
+       width="2"
+       height="1"
+       x="82"
+       y="62" />
+    <rect
+       style="fill:#2a2aff"
+       id="rect14"
+       width="2"
+       height="1"
+       x="82"
+       y="64" />
+    <rect
+       style="fill:#0000ff"
+       id="rect15"
+       width="2"
+       height="1"
+       x="82"
+       y="66" />
+    <rect
+       style="fill:#0000d4"
+       id="rect16"
+       width="4"
+       height="1"
+       x="80"
+       y="68" />
+  </g>
+</svg>
