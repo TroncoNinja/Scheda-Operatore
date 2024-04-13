@@ -5,6 +5,6 @@
 - [ ] UI Completa
 - [x] caricamento/Salvataggio Immagine Personaggio
 - [x] gestione status Operatore
-- [ ] statistiche armi e implemantazione
+- [x] statistiche armi e implemantazione
 - [ ] Salvataggio singolo PG
 - [ ] Salvataggio multipli pg
