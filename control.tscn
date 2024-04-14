@@ -1,6 +1,7 @@
-[gd_scene load_steps=29 format=3 uid="uid://bwr6euh5sy0h4"]
+[gd_scene load_steps=30 format=3 uid="uid://bwr6euh5sy0h4"]
 
 [ext_resource type="Texture2D" uid="uid://b72vtrk6dlb2p" path="res://icons/iconaPg.svg" id="1_abu8b"]
+[ext_resource type="Script" path="res://save_load.gd" id="1_glurp"]
 [ext_resource type="Theme" uid="uid://dxavjiunljyv6" path="res://temi/tema_bottoni.tres" id="2_8xko5"]
 [ext_resource type="Texture2D" uid="uid://wqtgjxfpupi3" path="res://icons/armor.svg" id="2_gx0cu"]
 [ext_resource type="Texture2D" uid="uid://dijl332ttrhwv" path="res://icons/hp_base.svg" id="3_ewqhc"]
@@ -137,6 +138,9 @@ thickness = 3
 [sub_resource type="GDScript" id="GDScript_x74n0"]
 script/source = "extends CheckButton
 
+func _pressed():
+	print(\"TiroBtn Pressed\");
+
 func _on_full_cover_btn_toggled(toggled_on):
 	if (toggled_on == true):
 		button_pressed = false;
@@ -148,9 +152,10 @@ func _on_full_cover_btn_toggled(toggled_on):
 [sub_resource type="GDScript" id="GDScript_8s8q3"]
 script/source = "extends CheckButton
 
+func _pressed():
+	print(\"half cover Pressed\");
+
 func _on_full_cover_btn_pressed():
-	print(\"full cover premuto\");
-	print(button_pressed);
 	if (button_pressed == true) :
 		button_pressed = false;
 "
@@ -158,9 +163,10 @@ func _on_full_cover_btn_pressed():
 [sub_resource type="GDScript" id="GDScript_ubjjo"]
 script/source = "extends CheckButton
 
+func _pressed():
+	print(\"full cover pressed\");
+
 func _on_half_cover_btn_pressed():
-	print(\"half cover premuto\");
-	print(button_pressed);
 	if (button_pressed == true) :
 		button_pressed = false;
 "
@@ -233,6 +239,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_glurp")
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a File"
@@ -252,7 +259,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 2
-current_tab = 1
+current_tab = 2
 tab_focus_mode = 0
 
 [node name="Curriculum" type="MarginContainer" parent="TabContainer"]
@@ -277,6 +284,7 @@ layout_mode = 2
 text = "Codice Civile:"
 
 [node name="Codice" type="LineEdit" parent="TabContainer/Curriculum/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 max_length = 7
 editable = false
@@ -288,6 +296,7 @@ layout_mode = 2
 text = "Nome:"
 
 [node name="Nome" type="LineEdit" parent="TabContainer/Curriculum/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/minimum_character_width = 12
 placeholder_text = "Nome Operatore"
@@ -298,6 +307,7 @@ layout_mode = 2
 text = "Cognome:"
 
 [node name="Cognome" type="LineEdit" parent="TabContainer/Curriculum/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/minimum_character_width = 12
 placeholder_text = "Cognome Operatore"
@@ -329,6 +339,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_utmm4")
 
 [node name="ImgPg" type="TextureRect" parent="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(420, 420)
 layout_mode = 2
 texture = ExtResource("1_abu8b")
@@ -343,11 +354,13 @@ layout_mode = 2
 layout_mode = 2
 text = "Storia:"
 
-[node name="TextEdit" type="TextEdit" parent="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Storia" type="TextEdit" parent="TabContainer/Curriculum/VBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(450, 450)
 layout_mode = 2
 
 [node name="Statistiche" type="MarginContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -386,7 +399,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_f6l3n")
 layout_mode = 2
 alignment = 1
 
-[node name="Button" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Head" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -398,7 +412,8 @@ text = "H"
 layout_mode = 2
 alignment = 1
 
-[node name="Button2" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LeftArm" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(35, 90)
 layout_mode = 2
 size_flags_vertical = 0
@@ -406,14 +421,16 @@ theme = ExtResource("2_8xko5")
 toggle_mode = true
 text = "A"
 
-[node name="Button3" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Body" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 100)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 text = "B"
 
-[node name="Button4" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="RightArm" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(35, 90)
 layout_mode = 2
 size_flags_vertical = 0
@@ -425,14 +442,16 @@ text = "A"
 layout_mode = 2
 alignment = 1
 
-[node name="Button5" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="LeftLeg" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(35, 100)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 text = "L"
 
-[node name="Button6" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="RightLeg" type="Button" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(35, 100)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
@@ -459,7 +478,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "HP"
 horizontal_alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Hp1" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -468,7 +488,8 @@ texture_normal = ExtResource("3_ewqhc")
 texture_pressed = ExtResource("4_dk57h")
 stretch_mode = 5
 
-[node name="TextureButton2" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Hp2" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -477,7 +498,8 @@ texture_normal = ExtResource("3_ewqhc")
 texture_pressed = ExtResource("4_dk57h")
 stretch_mode = 5
 
-[node name="TextureButton3" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Hp3" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -486,7 +508,8 @@ texture_normal = ExtResource("3_ewqhc")
 texture_pressed = ExtResource("4_dk57h")
 stretch_mode = 5
 
-[node name="TextureButton4" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="Hp4" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -510,7 +533,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureButton" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+[node name="Ca1" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -520,7 +544,8 @@ texture_pressed = ExtResource("3_gf0ih")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="TextureButton2" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+[node name="Ca2" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -530,7 +555,8 @@ texture_pressed = ExtResource("3_gf0ih")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="TextureButton3" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+[node name="Ca3" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -540,7 +566,8 @@ texture_pressed = ExtResource("3_gf0ih")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="TextureButton4" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+[node name="Ca4" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -550,7 +577,8 @@ texture_pressed = ExtResource("3_gf0ih")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="TextureButton5" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+[node name="Ca5" type="TextureButton" parent="TabContainer/Statistiche/HBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -574,7 +602,8 @@ layout_mode = 2
 text = "ADDESTRAMENTO: "
 horizontal_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Trainig" type="LineEdit" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -587,7 +616,8 @@ layout_mode = 2
 text = "ALTERAZIONI: "
 horizontal_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="Alteration" type="LineEdit" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -606,6 +636,7 @@ layout_mode = 2
 text = "STATUS:"
 
 [node name="TiroBtn" type="CheckButton" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -613,6 +644,7 @@ text = "In Tiro"
 script = SubResource("GDScript_x74n0")
 
 [node name="HalfCoverBtn" type="CheckButton" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -620,6 +652,7 @@ text = "Mezza Copertura"
 script = SubResource("GDScript_8s8q3")
 
 [node name="FullCoverBtn" type="CheckButton" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -638,7 +671,8 @@ columns = 2
 layout_mode = 2
 text = "Atletica:"
 
-[node name="SpinBox" type="SpinBox" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+[node name="Atletica" type="SpinBox" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 max_value = 5.0
 
@@ -646,7 +680,8 @@ max_value = 5.0
 layout_mode = 2
 text = "Sapienza:"
 
-[node name="SpinBox2" type="SpinBox" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+[node name="Sapienza" type="SpinBox" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 max_value = 5.0
 
@@ -654,7 +689,8 @@ max_value = 5.0
 layout_mode = 2
 text = "Empatia:"
 
-[node name="SpinBox3" type="SpinBox" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+[node name="Empatia" type="SpinBox" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 max_value = 5.0
 
@@ -662,12 +698,12 @@ max_value = 5.0
 layout_mode = 2
 text = "Sensi:"
 
-[node name="SpinBox4" type="SpinBox" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+[node name="Sensi" type="SpinBox" parent="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/GridContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 max_value = 5.0
 
 [node name="Inventario" type="MarginContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -687,7 +723,8 @@ layout_mode = 2
 layout_mode = 2
 text = "Nuovo Dollaro:"
 
-[node name="SpinBox" type="SpinBox" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Dollaro" type="SpinBox" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 max_value = 50.0
 alignment = 2
@@ -699,14 +736,15 @@ text = "(x 0.001)"
 [node name="HSeparator" type="HSeparator" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer"]
+[node name="Weapon1" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h4etf")
 
-[node name="MainWeapon" type="TextureRect" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/PanelContainer"]
+[node name="MainWeapon" type="TextureRect" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/PanelContainer"]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -715,7 +753,7 @@ expand_mode = 5
 stretch_mode = 4
 script = ExtResource("8_c78ju")
 
-[node name="WeaponSelector" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/PanelContainer/MainWeapon"]
+[node name="WeaponSelector" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/PanelContainer/MainWeapon"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -744,7 +782,7 @@ popup/item_5/id = 5
 popup/item_6/text = "Pistol"
 popup/item_6/id = 6
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/PanelContainer/MainWeapon"]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/PanelContainer/MainWeapon"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -757,7 +795,7 @@ grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.785397
 
-[node name="OpticSelector" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/PanelContainer/MainWeapon"]
+[node name="OpticSelector" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/PanelContainer/MainWeapon"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -778,166 +816,166 @@ popup/item_1/id = 1
 popup/item_2/text = "Acog"
 popup/item_2/id = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1"]
 layout_mode = 2
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+[node name="Hand" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Hand"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "Hand to hand:"
 
-[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Hand"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Hand"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Hand"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Hand"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Hand"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+[node name="Short" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Short"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "Short:"
 
-[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Short"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Short"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Short"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Short"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Short"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+[node name="Medium" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Medium"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "Medium:"
 
-[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Medium"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Medium"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Medium"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Medium"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Medium"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+[node name="Long" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer4"]
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Long"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "Long:"
 
-[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer4"]
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Long"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer4"]
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Long"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer4"]
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Long"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer4"]
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Long"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer4"]
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/VBoxContainer/Long"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
@@ -946,14 +984,15 @@ toggle_mode = true
 [node name="HSeparator2" type="HSeparator" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer"]
+[node name="Weapon2" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="PanelContainer" type="PanelContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h4etf")
 
-[node name="MainWeapon" type="TextureRect" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/PanelContainer"]
+[node name="MainWeapon" type="TextureRect" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/PanelContainer"]
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -962,7 +1001,7 @@ expand_mode = 5
 stretch_mode = 4
 script = ExtResource("8_c78ju")
 
-[node name="WeaponSelector" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/PanelContainer/MainWeapon"]
+[node name="WeaponSelector" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/PanelContainer/MainWeapon"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -991,7 +1030,7 @@ popup/item_5/id = 5
 popup/item_6/text = "Pistol"
 popup/item_6/id = 6
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/PanelContainer/MainWeapon"]
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/PanelContainer/MainWeapon"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1004,7 +1043,7 @@ grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.785397
 
-[node name="OpticSelector" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/PanelContainer/MainWeapon"]
+[node name="OpticSelector" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/PanelContainer/MainWeapon"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1025,166 +1064,166 @@ popup/item_1/id = 1
 popup/item_2/text = "Acog"
 popup/item_2/id = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2"]
 layout_mode = 2
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="Hand" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Hand"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "Hand to hand:"
 
-[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Hand"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Hand"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Hand"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Hand"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Hand"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="Short" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Short"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "Short:"
 
-[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Short"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Short"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Short"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Short"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Short"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="Medium" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Medium"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "Medium:"
 
-[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Medium"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Medium"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Medium"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Medium"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Medium"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="Long" type="HBoxContainer" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+[node name="Label" type="Label" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Long"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "Long:"
 
-[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+[node name="Button" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Long"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+[node name="Button2" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Long"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+[node name="Button3" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Long"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+[node name="Button4" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Long"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
 toggle_mode = true
 
-[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+[node name="Button5" type="Button" parent="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/VBoxContainer/Long"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("2_8xko5")
@@ -1223,7 +1262,8 @@ expand_mode = 1
 stretch_mode = 5
 script = SubResource("GDScript_g7rjf")
 
-[node name="OptionButton" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="GadgetSelected" type="OptionButton" parent="TabContainer/Inventario/HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 item_count = 5
@@ -1248,13 +1288,13 @@ offset_bottom = 15.8
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="HBoxContainer"]
+[node name="SaveBtn" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Salva"
 
-[node name="Button2" type="Button" parent="HBoxContainer"]
+[node name="LoadBtn" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -1266,6 +1306,8 @@ text = "Carica"
 [connection signal="pressed" from="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HalfCoverBtn" to="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/FullCoverBtn" method="_on_half_cover_btn_pressed"]
 [connection signal="pressed" from="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/FullCoverBtn" to="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/HalfCoverBtn" method="_on_full_cover_btn_pressed"]
 [connection signal="toggled" from="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/FullCoverBtn" to="TabContainer/Statistiche/HBoxContainer/VBoxContainer/HBoxContainer3/VBoxContainer/TiroBtn" method="_on_full_cover_btn_toggled"]
-[connection signal="item_selected" from="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/PanelContainer/MainWeapon/WeaponSelector" to="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer2/PanelContainer/MainWeapon" method="_on_weapon_selector_item_selected"]
-[connection signal="item_selected" from="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/PanelContainer/MainWeapon/WeaponSelector" to="TabContainer/Inventario/HBoxContainer/VBoxContainer/HBoxContainer3/PanelContainer/MainWeapon" method="_on_weapon_selector_item_selected"]
-[connection signal="item_selected" from="TabContainer/Inventario/HBoxContainer/PanelContainer/VBoxContainer/OptionButton" to="TabContainer/Inventario/HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/Gadget" method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/PanelContainer/MainWeapon/WeaponSelector" to="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon1/PanelContainer/MainWeapon" method="_on_weapon_selector_item_selected"]
+[connection signal="item_selected" from="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/PanelContainer/MainWeapon/WeaponSelector" to="TabContainer/Inventario/HBoxContainer/VBoxContainer/Weapon2/PanelContainer/MainWeapon" method="_on_weapon_selector_item_selected"]
+[connection signal="item_selected" from="TabContainer/Inventario/HBoxContainer/PanelContainer/VBoxContainer/GadgetSelected" to="TabContainer/Inventario/HBoxContainer/PanelContainer/VBoxContainer/PanelContainer/Gadget" method="_on_option_button_item_selected"]
+[connection signal="pressed" from="HBoxContainer/SaveBtn" to="." method="_on_save_btn_pressed"]
+[connection signal="pressed" from="HBoxContainer/LoadBtn" to="." method="_on_load_btn_pressed"]
