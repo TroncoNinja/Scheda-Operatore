@@ -1,5 +1,3 @@
 res://control.tscn
 res://temi/tema_bottoni.tres
 res://save_load.gd
-res://save/personaggio.json
-res://README.md

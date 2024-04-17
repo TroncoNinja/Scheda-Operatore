@@ -1,7 +1,12 @@
 extends Control
 
+func _ready():
+	var dir = DirAccess.open(OS.get_executable_path().get_base_dir());
+	dir.make_dir_absolute("save");
 
 func _on_save_btn_pressed():
+	var dir = DirAccess.open(OS.get_executable_path().get_base_dir());
+	dir.make_dir("/save");
 	var dati = {
 		"numero" : %Codice.text,
 		"nome" : %Nome.text,
@@ -92,7 +97,7 @@ func _on_save_btn_pressed():
 		"gadget" : %GadgetSelected.selected
 	};
 	var json_dati = JSON.stringify(dati);
-	var file_access = FileAccess.open("save/personaggio.json", FileAccess.WRITE);
+	var file_access = FileAccess.open(OS.get_executable_path().get_base_dir() + "/save/personaggio.json", FileAccess.WRITE);
 	if not file_access:
 		print("An error happened while saving data: ", FileAccess.get_open_error());
 		return
@@ -102,7 +107,7 @@ func _on_save_btn_pressed():
 
 func _on_load_btn_pressed():
 	var json = JSON.new();
-	var file_access = FileAccess.open("save/personaggio.json", FileAccess.READ);
+	var file_access = FileAccess.open(OS.get_executable_path().get_base_dir() + "/save/personaggio.json", FileAccess.READ);
 	var error = json.parse(file_access.get_line());
 	if error == OK:
 		var dati = json.data;
@@ -110,7 +115,8 @@ func _on_load_btn_pressed():
 		%Codice.text = dati.numero;
 		%Nome.text = dati.nome;
 		%Cognome.text = dati.cognome;
-		%ImgPg.texture = load("save/personaggio.png");
+		%ImgPg.texture = ImageTexture.create_from_image(Image.load_from_file(OS.get_executable_path().get_base_dir() + "/save/personaggio.png"));
+		print(OS.get_executable_path().get_base_dir() + "/save/personaggio.png");
 		%Storia.text = dati.storia;
 		
 		%Head.button_pressed = dati.corpo.head;
